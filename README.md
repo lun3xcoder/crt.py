@@ -13,7 +13,7 @@ git clone https://github.com/lun3xcoder/crt.py.git && cd crt.py/
 ```
 Step 2:
 ```
-./crt.py -h
+python3 crt.py -h
 ```
 Example :
 ```
