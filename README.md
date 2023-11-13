@@ -17,7 +17,7 @@ Step 2:
 ```
 Example :
 ```
-./crt.py -d hackerone.com | httpx
+python3 crt.py -d hackerone.com | httpx
 ```
 
 This will write all of the enumerated subdomains to the specified output file and will be ready to be passed to other tools.
