@@ -31,8 +31,7 @@ def get_certificate_data(domain):
             entry for entry in data if not entry["common_name"].startswith("*.")]
 
         # Remove duplicates based on the common_name
-        unique_data = {entry["common_name"]
-            : entry for entry in filtered_data}.values()
+        unique_data = {entry["common_name"]                       : entry for entry in filtered_data}.values()
 
         return list(unique_data)
     except requests.exceptions.RequestException as err:
@@ -48,6 +47,8 @@ def extract_common_names(certificate_data, output_folder, domain):
     with open(save_path, "w") as file:
         for common_name in unique_common_names:
             file.write("{}\n".format(common_name))
+
+    return unique_common_names  # Add this line to return the set of unique common names
 
 
 def main():
@@ -72,9 +73,10 @@ def main():
 
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
-
-        extract_common_names(certificate_data, output_folder, domain)
-        print("Unique Common Names extracted and saved to '{}/{}.txt' file.".format(output_folder, domain))
+        unique_common_names = extract_common_names(
+            certificate_data, output_folder, domain)
+        print("Found {} unique Common Names. Extracted and saved to '{}/{}.txt' file.".format(
+            len(unique_common_names), output_folder, domain))
     else:
         print("Failed to retrieve certificate data for {}".format(args.domain))
 
